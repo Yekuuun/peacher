@@ -26,9 +26,16 @@ func main() {
 		return
 	}
 
+	chatId := os.Getenv("BOT_CHAT_ID")
+	if chatId == "" {
+		log.Println("[!] ERROR : Telegram bot token not found.")
+		return
+	}
+
 	config := builder.NewAppBuilder().
 		WithPort(8080).
 		WithTelegramToken(token).
+		WithChatId(chatId).
 		Build()
 
 	server := gin.Default()

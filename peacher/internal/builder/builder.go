@@ -2,11 +2,13 @@ package builder
 
 type App struct {
 	TelegramToken string
+	ChatId        string
 	Port          int
 }
 
 type AppBuilder struct {
 	telegramToken string
+	chatId        string
 	port          int
 }
 
@@ -16,6 +18,11 @@ func NewAppBuilder() *AppBuilder {
 
 func (b *AppBuilder) WithTelegramToken(token string) *AppBuilder {
 	b.telegramToken = token
+	return b
+}
+
+func (b *AppBuilder) WithChatId(chatId string) *AppBuilder {
+	b.chatId = chatId
 	return b
 }
 
@@ -32,5 +39,6 @@ func (b *AppBuilder) Build() *App {
 	return &App{
 		TelegramToken: b.telegramToken,
 		Port:          b.port,
+		ChatId:        b.chatId,
 	}
 }
