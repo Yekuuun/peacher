@@ -41,7 +41,7 @@ func main() {
 	server := gin.Default()
 
 	server.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"}, // use server IP ?
+		AllowOrigins:     []string{"http://localhost:80, http://localhost"}, // use server IP ?
 		AllowMethods:     []string{"GET", "POST"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
