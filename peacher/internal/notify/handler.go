@@ -39,5 +39,12 @@ func (h *Handler) SendPayload(c *gin.Context) {
 
 // Get status of the bot.
 func (h *Handler) GetStatus(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"status": "OK"})
+	rep, err := getBotStatus(h.Token)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request or missing fields"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"redirect": handleStatusToString(rep)})
 }

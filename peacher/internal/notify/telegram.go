@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -47,4 +48,39 @@ func sendToTelegram(token string, chatId string, payload TelegramData) error {
 	}
 
 	return nil
+}
+
+// Check if bot is online.
+func getBotStatus(token string) (bool, error) {
+	if token == "" {
+		return false, fmt.Errorf("missing token or chat id")
+	}
+
+	url := fmt.Sprintf("https://api.telegram.org/bot%s/getMe", token)
+	resp, err := http.Get(url)
+	if err != nil {
+		return true, err
+	}
+
+	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return false, err
+	}
+
+	var payload GetMeResponse
+	err = json.Unmarshal(body, &payload)
+	if err != nil {
+		return false, err
+	}
+
+	return payload.Ok, nil
+}
+
+func handleStatusToString(rep bool) string {
+	if rep {
+		return "ok"
+	} else {
+		return "error"
+	}
 }
