@@ -1,7 +1,5 @@
-version: "3.8"
-
 services:
-  backend:
+  peacher:
     build: ./peacher
     container_name: peacher 
     ports: 
@@ -9,10 +7,21 @@ services:
     env_file:
       - ./peacher/.env
     
-  frontend:
+  client:
     build: ./web
     container_name: client
     ports:
       - "80:80"
     depends_on:
       - peacher
+  
+  ngrok:
+    image: ngrok/ngrok
+    container_name: peacher-ngrok
+    ports:
+      - "4040:4040"
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_TOKEN}
+    command: http --host-header=client:80 client:80
+    depends_on:
+      - client
