@@ -55,6 +55,10 @@ http://localhost:4040
 ```
 <img src="https://github.com/Yekuuun/peacher/blob/main/assets/ngrok.png" alt="DebugInfo" />
 
+Check you ngrok hosting. go to <your_ngrok_url>/mym for example
+
+<img src="https://github.com/Yekuuun/peacher/blob/main/assets/mym.png" alt="DebugInfo" />
+
 
 <br>
 
