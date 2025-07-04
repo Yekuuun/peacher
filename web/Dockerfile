@@ -1,4 +1,5 @@
 FROM nginx:alpine
 
-COPY . /usr/share/nginx/html
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./mym /usr/share/nginx/html/mym
+COPY ./onlyfans /usr/share/nginx/html/onlyfans

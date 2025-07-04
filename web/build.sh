@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t peacher-client .
+docker build -t mym-of-nginx .
