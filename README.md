@@ -3,7 +3,7 @@
 </p>
 <div align="center">
   <h1>Peacher</h1>
-  <p><strong>A base POC for MYM & OF phishing. under construction...</strong></p>
+  <p><strong>A base POC for MYM & OF phishing</strong></p>
 </div>
 
 ## What's Peacher ?
@@ -31,6 +31,51 @@ Peacher is a minimalist POC implementating a base phishing framework for MYM & O
 
 - Golang 1.23 (version used for Peacher)
 - Docker
+- Telegram
+
+### ⚠️ Notes
+
+When cloning the repo, you'll have to setup **.env** files. Without those configuration, you won't be able to launch the solution. The project contains 2 .env file, one in `/peacher` for the telegram configuration and one at root of the project for the ngrok auth token. You'll have to create 2 `.env` files based on `.env.example` files.
+
+<br>
+
+### Creating a Telegram bot
+
+Without the bot, you won't receive any payloads... so it's crucial to configure it.
+
+<a href="https://core.telegram.org/bots/tutorial" target="_blank">Official documentation</a>
+
+Once you've create your bot, use the 2 scripts in `/peacher/scripts` to check the status of your bot & get basic informations like chat_id etc.
+
+```bash
+
+#!/bin/bash
+
+#loading environment variables.
+set -a
+source ../.env
+set +a
+
+#calling telegram api.
+echo "TELEGRAM BOT STATUS :"
+curl -s "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getMe" | jq -r '.ok'
+
+```
+
+```bash
+
+#!/bin/bash
+
+set -a 
+source ../.env
+set +a
+
+#get informations
+curl -s "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getUpdates" | jq
+
+```
+
+<br>
 
 ### Install
 
