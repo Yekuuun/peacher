@@ -22,6 +22,7 @@ type MaliciousPayload struct {
 }
 
 type TelegramData struct {
+	Platform   string `json:"platform"`
 	Identifier string `json:"identifier"` //username || email.
 	Password   string `json:"password"`
 }

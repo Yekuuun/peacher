@@ -109,6 +109,8 @@ Check you ngrok hosting. go to <your_ngrok_url>/mym for example
 
 ## Preview
 
+<img src="https://github.com/Yekuuun/peacher/blob/main/assets/peacher-bot.png" alt="DebugInfo" />
+
 <img src="https://github.com/Yekuuun/peacher/blob/main/assets/preview.png" alt="DebugInfo" />
 
 
